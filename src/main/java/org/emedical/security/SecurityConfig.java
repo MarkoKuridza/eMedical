@@ -1,8 +1,8 @@
 package org.emedical.security;
 
+import lombok.RequiredArgsConstructor;
 import org.emedical.service.CustomUserDetailsService;
 import org.emedical.service.JwtService;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,15 +19,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final JwtService jwtService;
     private final CustomUserDetailsService userDetailsService;
-
-    public SecurityConfig(JwtService jwtService, CustomUserDetailsService userDetailsService) {
-        this.jwtService = jwtService;
-        this.userDetailsService = userDetailsService;
-    }
 
     @Bean
     public JwtAuthenticationFilter jwtAuthFilter(JwtService jwtService, CustomUserDetailsService userDetailsService) {
@@ -41,7 +37,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/api/doctors/**").hasRole("DOCTOR")
-                        .requestMatchers("/api/nurses/**").hasRole("NURSE")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess

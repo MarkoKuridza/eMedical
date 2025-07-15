@@ -11,14 +11,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
     private final UserEntityRepository repository;
     private final ModelMapper modelMapper;
-
-    public CustomUserDetailsServiceImpl(UserEntityRepository repository, ModelMapper modelMapper) {
-        this.repository = repository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

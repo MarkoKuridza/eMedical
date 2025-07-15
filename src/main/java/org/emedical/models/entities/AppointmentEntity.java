@@ -26,11 +26,14 @@ public class AppointmentEntity {
     @Enumerated(EnumType.STRING)
     private Status appointmentStatus;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
     private DoctorEntity doctor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     private PatientEntity patient;
+
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    private MedicalRecordEntity medicalRecord;
 }
