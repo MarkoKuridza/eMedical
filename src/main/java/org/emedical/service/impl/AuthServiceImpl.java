@@ -2,9 +2,12 @@ package org.emedical.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.emedical.exceptions.NotFoundException;
+import org.emedical.models.dto.Admin;
 import org.emedical.models.dto.Doctor;
 import org.emedical.models.dto.LoginRequest;
 import org.emedical.models.dto.LoginResponse;
+import org.emedical.models.entities.UserEntity;
+import org.emedical.models.enums.Role;
 import org.emedical.repositories.DoctorEntityRepository;
 import org.emedical.service.AuthService;
 import org.emedical.service.JwtService;
@@ -34,13 +37,24 @@ public class AuthServiceImpl implements AuthService {
                         request.getPassword()
                 )
         );
-        UserDetails user = (UserDetails) authentication.getPrincipal();
 
-        Doctor doctor = modelMapper.map(repository.findByUsername(user.getUsername()).orElseThrow(NotFoundException::new), Doctor.class);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        //Auth za doktora i admina istovremeno, treba i za sestru uraditi!!
+        UserEntity userEntity = repository.findByUsername(userDetails.getUsername())
+        .orElseThrow(NotFoundException::new);
+
         Map<String, Object> claims = new HashMap<>();
-        claims.put("doctorId", doctor.getId());
+        
+        if (userEntity.getRole() == Role.DOCTOR) {
+            Doctor doctor = modelMapper.map(userEntity, Doctor.class);
+            claims.put("doctorId", doctor.getId());
+        } else if (userEntity.getRole() == Role.ADMIN) {
+            Admin admin = modelMapper.map(userEntity, Admin.class);
+            claims.put("adminId", admin.getId());
+        }
 
-        String token = jwtService.generateToken(claims, user);
+        String token = jwtService.generateToken(claims, userDetails);
 
         return new LoginResponse(token);
     }
