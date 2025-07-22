@@ -26,6 +26,10 @@ public class PatientEntity {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<AppointmentEntity> appointments;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctor_id")
+    private DoctorEntity doctor;
+
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<MedicalRecordEntity> medicalRecords;
 }
