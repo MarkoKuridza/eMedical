@@ -28,6 +28,9 @@ public class DoctorEntity extends UserEntity {
     private List<AppointmentEntity> appointments;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<PatientEntity> patients;
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     private List<MedicalRecordEntity>  medicalRecords;
 
     //dodati i timove

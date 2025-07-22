@@ -5,10 +5,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.emedical.exceptions.NotFoundException;
 import org.emedical.models.dto.Appointment;
+import org.emedical.models.dto.MedicalRecord;
+import org.emedical.models.dto.Patient;
 import org.emedical.models.requests.MedicalRecordRequest;
 import org.emedical.service.AppointentService;
 import org.emedical.service.JwtService;
 import org.emedical.service.MedicalRecordService;
+import org.emedical.service.PatientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,6 +28,7 @@ public class DoctorController {
     private final AppointentService appointentService;
     private final JwtService jwtService;
     private final MedicalRecordService medicalRecordService;
+    private final PatientService patientService;
 
     @GetMapping
     public ResponseEntity<String> getAllDoctors() {
@@ -53,20 +57,29 @@ public class DoctorController {
     @PostMapping("/process-patient")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> processPatient(@RequestBody MedicalRecordRequest request,
-                                            @AuthenticationPrincipal UserDetails userDetails ) throws NotFoundException {
+                                            @AuthenticationPrincipal UserDetails userDetails) throws NotFoundException {
         var record = medicalRecordService.createMedicalRecord(request, userDetails.getUsername());
         return ResponseEntity.ok(record);
     }
 
 
-    //pristup svim njegovim pacijentima
+    //pristup svim pacijentima porodicnog doktora
 //    @GetMapping("/{id}/patients")
-//    public ResponseEntity<List<Patient>> getAllPatientsByDoctorId(@PathVariable Integer id, HttpServletRequest request){
+//    public ResponseEntity<List<Patient>> getAllPatientsByDoctorId(@PathVariable Integer doctorId, HttpServletRequest request) {
 //    }
 
-    //pristup generalno svim pacijentima
+    //pristup pacijentu od strane porodicnog doktora
+    //@GetMapping("/{id}/patients/{patient-id}")
+//    public ResponseEntity<List<Patient>> getPatientByDoctorId(@PathVariable Integer doctorId, @PathVariable Integer patientId, HttpServletRequest request){
+//    }
 
-    //pristup zdravstvenom kartonu i istoriji...ovo je u sustini pristup pacijentu
+    //pristup pacijentovom zdravstvenom kartonu
+    @GetMapping("/{doctorId}/patients/{patientId}/medical-records")
+    public ResponseEntity<List<MedicalRecord>> getMedicalRecordsByPatientsId(@PathVariable Integer doctorId, @PathVariable Integer patientId, HttpServletRequest request) {
+        List<MedicalRecord> patientsMedicalRecord = medicalRecordService.getAllMedicalRecordsByPatientId(patientId);
+
+        return ResponseEntity.ok(patientsMedicalRecord);
+    }
 
 
 }
