@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import org.emedical.exceptions.NotFoundException;
 import org.emedical.models.dto.Admin;
+import org.emedical.models.entities.AdminEntity;
+import org.emedical.models.enums.Role;
+import org.emedical.models.mappers.AdminMapper;
 import org.emedical.repositories.AdminEntityRepository;
 import org.emedical.service.AdminService;
 import org.modelmapper.ModelMapper;
@@ -28,5 +31,44 @@ public class AdminServiceImpl implements AdminService {
         return modelMapper.map(repository.findById(id).orElseThrow(NotFoundException::new), Admin.class);
     }
 
-    //TODO kreiranje tima doktora
+    @Override
+    public Admin saveAdmin(Admin admin) {
+
+        AdminEntity adminEntity = AdminMapper.toEntity(admin);
+        adminEntity.setRole(Role.ADMIN);
+        adminEntity.setIsActive(true);
+
+        AdminEntity savedEntity = repository.save(adminEntity);
+        return AdminMapper.toDto(savedEntity);
+    }
+
+    @Override
+    public Admin editAdmin(Admin admin) {
+
+        AdminEntity adminEntity = repository.findById(admin.getId())
+        .orElseThrow(() -> new IllegalArgumentException("This admin does not exist!"));
+
+        AdminMapper.updateEntity(adminEntity, admin);
+        AdminEntity updated = repository.save(adminEntity);
+
+        return AdminMapper.toDto(updated);
+    }
+
+    @Override
+    public void setActive(Integer id) {
+        AdminEntity adminEntity = repository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("This admin does not exist!"));
+
+        adminEntity.setIsActive(true);
+        repository.save(adminEntity);
+    }
+
+    @Override
+    public void setInactive(Integer id) {
+        AdminEntity adminEntity = repository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("This admin does not exist!"));
+
+        adminEntity.setIsActive(false);
+        repository.save(adminEntity);
+    }
 }

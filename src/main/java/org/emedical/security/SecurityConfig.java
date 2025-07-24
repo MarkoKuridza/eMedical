@@ -54,9 +54,10 @@ public class SecurityConfig {
             .sessionManagement(sess -> sess
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
-            // No authentication provider or filters needed when permitting all
             .build(); 
      
+
+            
      */
 
     @Bean
