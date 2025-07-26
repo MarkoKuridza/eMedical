@@ -21,14 +21,15 @@ public class PatientMapper {
         return dto;
     }
 
-    public static PatientEntity toEntity(Patient dto, DoctorEntity doctorEntity) {
+    public static PatientEntity toEntity(Patient dto) {
         if (dto == null) return null;
 
         PatientEntity entity = new PatientEntity();
         entity.setId(dto.getId());
         entity.setFirst_name(dto.getFirst_name());
         entity.setLast_name(dto.getLast_name());
-        entity.setDoctor(doctorEntity);
+
+        //Ovdje treba da se postavi doktor za pacijenta ali to treba odraditi u Service sloju!!!!
 
         return entity;
     }

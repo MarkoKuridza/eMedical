@@ -19,7 +19,6 @@ public class DoctorMapper {
         dto.setLast_name(entity.getLast_name());
         dto.setSpecialization(entity.getSpecialization());
 
-        // Optionally map appointments (shallow copy)
         dto.setAppointments(entity.getAppointments());
 
         return dto;

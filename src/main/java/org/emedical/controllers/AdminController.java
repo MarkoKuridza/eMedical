@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.emedical.exceptions.NotFoundException;
 import org.emedical.models.dto.Admin;
-import org.emedical.models.entities.AdminEntity;
 import org.emedical.service.JwtService;
 import org.emedical.service.impl.AdminServiceImpl;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;

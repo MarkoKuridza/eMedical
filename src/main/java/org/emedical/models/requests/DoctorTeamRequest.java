@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class DoctorTeamRequest {
     
+    private Integer teamId;
     private Integer doctorId;
     private Set<Integer> nurseIds;
     private Set<Integer> patientIds;

@@ -1,5 +1,6 @@
 package org.emedical.models.mappers;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,12 +13,31 @@ import org.emedical.models.requests.DoctorTeamRequest;
 
 public class DoctorTeamMapper {
     
-    public static DoctorTeamEntity toEntity(DoctorTeamRequest dto, DoctorEntity doctor, Set<NurseEntity> nurses, Set<PatientEntity> patients) {
+    public static DoctorTeamEntity toEntity(DoctorTeam dto, DoctorEntity doctor, Set<NurseEntity> nurses, Set<PatientEntity> patients) {
         DoctorTeamEntity entity = new DoctorTeamEntity();
+        
+        entity.setId(dto.getId());
         entity.setDoctor(doctor);
-        entity.setNurses(nurses);
-        entity.setPatients(patients);
+        entity.setNurses(nurses != null ? nurses : Collections.emptySet());
+
+        if(patients != null) {
+            entity.setPatients(patients);
+            for(PatientEntity patient : patients) {
+                patient.setDoctorTeam(entity);
+            }
+        } else {
+            entity.setPatients(Collections.emptySet());
+        }
         return entity;
+    }
+
+    public static DoctorTeamRequest toRequest(DoctorTeamEntity entity) {
+        DoctorTeamRequest dto = new DoctorTeamRequest();
+        dto.setTeamId(entity.getId());
+        dto.setDoctorId(entity.getDoctor().getId());
+        dto.setNurseIds(entity.getNurses().stream().map(NurseEntity::getId).collect(Collectors.toSet()));
+        dto.setPatientIds(entity.getPatients().stream().map(PatientEntity::getId).collect(Collectors.toSet()));
+        return dto;
     }
 
     public static DoctorTeam toDto(DoctorTeamEntity entity) {
