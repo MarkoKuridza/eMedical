@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class Nurse extends User {
+public class Admin extends User {
     private String first_name;
     private String last_name;
 }
