@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.emedical.exceptions.NotFoundException;
 import org.emedical.models.dto.Appointment;
 import org.emedical.models.dto.MedicalRecord;
-import org.emedical.models.dto.Patient;
 import org.emedical.models.requests.MedicalRecordRequest;
 import org.emedical.service.AppointentService;
 import org.emedical.service.JwtService;

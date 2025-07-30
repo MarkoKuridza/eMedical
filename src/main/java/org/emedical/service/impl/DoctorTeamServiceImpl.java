@@ -6,10 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.emedical.exceptions.NotFoundException;
-import org.emedical.models.dto.Doctor;
 import org.emedical.models.dto.DoctorTeam;
-import org.emedical.models.dto.Nurse;
-import org.emedical.models.dto.Patient;
 import org.emedical.models.entities.DoctorEntity;
 import org.emedical.models.entities.DoctorTeamEntity;
 import org.emedical.models.entities.NurseEntity;

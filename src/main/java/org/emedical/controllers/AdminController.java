@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admins")
+@RequestMapping("/api/admin")
 public class AdminController {
     
     private final JwtService jwtService;
