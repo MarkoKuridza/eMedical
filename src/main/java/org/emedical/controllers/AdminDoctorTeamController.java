@@ -2,10 +2,7 @@ package org.emedical.controllers;
 
 import java.util.List;
 
-import org.emedical.models.dto.Doctor;
 import org.emedical.models.dto.DoctorTeam;
-import org.emedical.models.dto.Nurse;
-import org.emedical.models.dto.Patient;
 import org.emedical.models.requests.DoctorRequest;
 import org.emedical.models.requests.DoctorTeamRequest;
 import org.emedical.models.requests.NurseRequest;
@@ -27,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/admins/doctor-teams")
+@RequestMapping("/api/admin/doctor-teams")
 public class AdminDoctorTeamController {
     
     private final JwtService jwtService;

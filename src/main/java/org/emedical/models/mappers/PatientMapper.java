@@ -34,15 +34,12 @@ public class PatientMapper {
         return entity;
     }
 
-    public static void updateEntity(PatientEntity entity, Patient dto, DoctorEntity doctorEntity) {
+    public static void updateEntity(PatientEntity entity, Patient dto) {
         if (dto.getFirst_name() != null) {
             entity.setFirst_name(dto.getFirst_name());
         }
         if (dto.getLast_name() != null) {
             entity.setLast_name(dto.getLast_name());
-        }
-        if (doctorEntity != null) {
-            entity.setDoctor(doctorEntity);
         }
     }
 }
