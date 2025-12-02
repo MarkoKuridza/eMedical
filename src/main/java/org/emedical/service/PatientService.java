@@ -5,6 +5,5 @@ import org.emedical.models.dto.Patient;
 import java.util.List;
 
 public interface PatientService {
-    List<Patient> getAllPatientsByDoctorId(Integer doctorId);
-
+    List<Patient> getAllPatients();
 }
