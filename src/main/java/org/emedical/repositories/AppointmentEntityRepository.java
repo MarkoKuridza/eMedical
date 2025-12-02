@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AppointmentEntityRepository extends JpaRepository<AppointmentEntity, Integer> {
-    List<AppointmentEntity> getAllByDoctor_Id(Integer id);
+    List<AppointmentEntity> getAllByTeam_TeamId(Integer id);
 }

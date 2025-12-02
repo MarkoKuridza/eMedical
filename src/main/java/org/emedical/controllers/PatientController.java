@@ -1,10 +1,14 @@
 package org.emedical.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.emedical.models.dto.Doctor;
 import org.emedical.models.dto.Patient;
+import org.emedical.security.CustomUserDetails;
+import org.emedical.service.DoctorService;
 import org.emedical.service.MedicalRecordService;
 import org.emedical.service.PatientService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,16 +18,19 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/patients")
+@RequestMapping("/api/patient")
 public class PatientController {
 
     private final PatientService patientService;
-    private final MedicalRecordService medicalRecordService;
+    private final DoctorService doctorService;
 
-    //pristup generalno svim pacijentima
-    @GetMapping()
-    public ResponseEntity<List<Patient>> getAllPatients() {
-        return ResponseEntity.ok(patientService.getAllPatients());
+    //pristup svim pacijentima doktora/tima
+    @GetMapping("/patients")
+    public ResponseEntity<List<Patient>> getAllPatientsByTeamId(@AuthenticationPrincipal CustomUserDetails user) {
+        Doctor doctor = doctorService.getDoctorByTeamId(user.getTeamId());
+
+        List<Patient> patients = patientService.getAllPatientsByDoctorId(doctor.getId());
+        return ResponseEntity.ok(patients);
     }
 
 

@@ -5,37 +5,41 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
-@Entity
-@Table(name = "medical_record")
-public class MedicalRecordEntity {
+    @Data
+    @Entity
+    @Table(name = "medical_record")
+    public class MedicalRecordEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "id")
+        private Integer id;
 
-    @Basic
-    @Column(name = "diagnosis", nullable = false)
-    private String diagnosis;
+        @Basic
+        @Column(name = "diagnosis", nullable = false)
+        private String diagnosis;
 
-    @Basic
-    @Column(name = "prescription", nullable = false)
-    private String prescription;
+        @Basic
+        @Column(name = "prescription", nullable = false)
+        private String prescription;
 
-    @Basic
-    @Column(name = "created_At", nullable = false)
-    private LocalDateTime createdAt;
+        @Basic
+        @Column(name = "created_At", nullable = false)
+        private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "doctor_id", nullable = false)
-    private DoctorEntity doctor;
+        @Basic
+        @Column(name = "emergency")
+        private Boolean emergency;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
-    private PatientEntity patient;
+        @ManyToOne
+        @JoinColumn(name = "doctor_id", nullable = false)
+        private DoctorEntity doctor;
 
-    @OneToOne
-    @JoinColumn(name = "appointment_id")
-    private AppointmentEntity appointment;
-}
+        @ManyToOne
+        @JoinColumn(name = "patient_id", nullable = false)
+        private PatientEntity patient;
+
+        @OneToOne
+        @JoinColumn(name = "appointment_id")
+        private AppointmentEntity appointment;
+    }

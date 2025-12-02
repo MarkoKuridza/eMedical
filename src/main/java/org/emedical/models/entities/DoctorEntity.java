@@ -1,8 +1,10 @@
 package org.emedical.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.emedical.models.dto.Patient;
 
 import java.util.List;
 
@@ -24,16 +26,14 @@ public class DoctorEntity extends UserEntity {
     @Column(name = "specialization", nullable = false)
     private String specialization;
 
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
-    private List<AppointmentEntity> appointments;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "team_id", referencedColumnName = "id")
+    private TeamEntity team;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     private List<PatientEntity> patients;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<MedicalRecordEntity>  medicalRecords;
-
-    //dodati i timove
-
-
 }

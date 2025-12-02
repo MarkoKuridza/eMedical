@@ -1,17 +1,15 @@
 package org.emedical.controllers;
 
-import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.emedical.exceptions.NotFoundException;
-import org.emedical.models.dto.Appointment;
+import org.emedical.models.dto.Doctor;
 import org.emedical.models.dto.MedicalRecord;
 import org.emedical.models.dto.Patient;
 import org.emedical.models.requests.MedicalRecordRequest;
-import org.emedical.service.AppointentService;
-import org.emedical.service.JwtService;
-import org.emedical.service.MedicalRecordService;
-import org.emedical.service.PatientService;
+import org.emedical.repositories.DoctorEntityRepository;
+import org.emedical.service.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,41 +17,47 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/doctors")
 public class DoctorController {
 
-    private final AppointentService appointentService;
-    private final JwtService jwtService;
     private final MedicalRecordService medicalRecordService;
     private final PatientService patientService;
 
+    private final DoctorEntityRepository repository;
+    private final ModelMapper modelMapper;
+
     @GetMapping
-    public ResponseEntity<String> getAllDoctors() {
-        return ResponseEntity.ok("Get all doctors");
+    public ResponseEntity<List<Doctor>> getAllDoctors() {
+        List<Doctor> doctors;
+        doctors = repository.findAll().stream().map(d -> modelMapper.map(d, Doctor.class)).collect(Collectors.toList());
+        return ResponseEntity.ok(doctors);
     }
 
-    @GetMapping("/{id}/appointments")
-    public ResponseEntity<List<Appointment>> getAllAppointmentsByDoctorId(@PathVariable Integer id, HttpServletRequest request) {
-        if (!hasAccess(id, request)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-
-        List<Appointment> appointments = appointentService.getAllAppointmentsByDoctorId(id);
-        return ResponseEntity.ok(appointments);
-    }
+    //prebaci u AppointmentController i izmjeniti api pozive na frontu
+//    @GetMapping("/{id}/appointments")
+//    public ResponseEntity<List<Appointment>> getAllAppointmentsByDoctorId(@PathVariable Integer id, HttpServletRequest request) {
+//        if (!hasAccess(id, request)) {
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+//        }
+//
+//        List<Appointment> appointments = appointmentService.getAllAppointmentsByDoctorId(id);
+//        return ResponseEntity.ok(appointments);
+//    }
 
     //moze se isto uraditi sa @PreAuthorize sa custom provjerom i bolje izgleda, ali mi se to ne da raditi
-    private boolean hasAccess(Integer id, HttpServletRequest request) {
-        String token = request.getHeader("Authorization").substring(7); //skida "Bearer "
-        Claims claim = jwtService.extractAllClaims(token);
-        Integer tokenDoctorId = (Integer) claim.get("doctorId");
+//    private boolean hasAccess(Integer id, HttpServletRequest request) {
+//        String token = request.getHeader("Authorization").substring(7); //skida "Bearer "
+//        Claims claim = jwtService.extractAllClaims(token);
+//        Integer tokenDoctorId = (Integer) claim.get("doctorId");
+//
+//        return id.equals(tokenDoctorId);
+//    }
 
-        return id.equals(tokenDoctorId);
-    }
-
+    //prebaciti u MedicalRecordController i izmjeniti api pozive na frontu
     @PostMapping("/process-patient")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> processPatient(@RequestBody MedicalRecordRequest request,
@@ -64,18 +68,17 @@ public class DoctorController {
 
 
     //pristup svim pacijentima porodicnog doktora
-//    @GetMapping("/{id}/patients")
-//    public ResponseEntity<List<Patient>> getAllPatientsByDoctorId(@PathVariable Integer doctorId, HttpServletRequest request) {
-//    }
+    @GetMapping("/{doctorId}/patients")
+    public ResponseEntity<List<Patient>> getAllPatientsByDoctorId(@PathVariable Integer doctorId, HttpServletRequest request) {
+        List<Patient> doctorsPatients = patientService.getAllPatientsByDoctorId(doctorId);
 
-    //pristup pacijentu od strane porodicnog doktora
-    //@GetMapping("/{id}/patients/{patient-id}")
-//    public ResponseEntity<List<Patient>> getPatientByDoctorId(@PathVariable Integer doctorId, @PathVariable Integer patientId, HttpServletRequest request){
-//    }
+        return ResponseEntity.ok(doctorsPatients);
+    }
+
 
     //pristup pacijentovom zdravstvenom kartonu
-    @GetMapping("/{doctorId}/patients/{patientId}/medical-records")
-    public ResponseEntity<List<MedicalRecord>> getMedicalRecordsByPatientsId(@PathVariable Integer doctorId, @PathVariable Integer patientId, HttpServletRequest request) {
+    @GetMapping("/patients/{patientId}/medical-records")
+    public ResponseEntity<List<MedicalRecord>> getMedicalRecordsByPatientsId( @PathVariable Integer patientId, HttpServletRequest request) {
         List<MedicalRecord> patientsMedicalRecord = medicalRecordService.getAllMedicalRecordsByPatientId(patientId);
 
         return ResponseEntity.ok(patientsMedicalRecord);

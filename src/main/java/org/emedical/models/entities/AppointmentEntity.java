@@ -22,18 +22,47 @@ public class AppointmentEntity {
     private LocalDateTime appointmentDate;
 
     @Basic
+    @Column(name = "details", nullable = false)
+    private String appointmentDetails;
+
+    @Basic
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private Status appointmentStatus;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id")
+    private PatientEntity patient;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
     private DoctorEntity doctor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
-    private PatientEntity patient;
+    @JoinColumn(name = "nurse_id")
+    private NurseEntity nurse;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private TeamEntity team;
+
+    @Basic
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
 
     @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
     private MedicalRecordEntity medicalRecord;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = this.createdAt;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }
