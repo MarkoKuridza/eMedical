@@ -13,7 +13,7 @@ public class Appointment {
     private Integer nurseId;
     //private Integer patientId;
     private Integer teamId;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'")
     private LocalDateTime appointmentDate;
     private String appointmentDetails;
     private Status appointmentStatus;

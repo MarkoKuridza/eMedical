@@ -2,7 +2,6 @@ package org.emedical.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
@@ -33,9 +32,4 @@ public class PatientEntity {
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<MedicalRecordEntity> medicalRecords;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id")
-    @EqualsAndHashCode.Exclude
-    private DoctorTeamEntity doctorTeam;
 }

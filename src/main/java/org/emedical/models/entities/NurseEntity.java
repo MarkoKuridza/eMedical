@@ -1,10 +1,9 @@
 package org.emedical.models.entities;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -19,6 +18,7 @@ public class NurseEntity extends UserEntity {
     @Column(name = "last_name", nullable = false)
     private String last_name;
 
-    //dodati u timove
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private TeamEntity team;
 }

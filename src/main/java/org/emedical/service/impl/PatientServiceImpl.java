@@ -17,8 +17,10 @@ public class PatientServiceImpl implements PatientService {
     private final PatientEntityRepository repository;
     private final ModelMapper modelMapper;
 
-    public List<Patient> getAllPatients(){
-        return repository.findAll().stream().map(p -> modelMapper.map(p, Patient.class))
+    @Override
+    public List<Patient> getAllPatientsByDoctorId(Integer doctorId) {
+        return repository.getAllByDoctor_Id(doctorId).stream().map(p -> modelMapper.map(p, Patient.class))
                 .collect(Collectors.toList());
     }
+
 }

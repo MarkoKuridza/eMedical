@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.emedical.exceptions.NotFoundException;
 import org.emedical.models.dto.Doctor;
 import org.emedical.models.dto.MedicalRecord;
+import org.emedical.models.dto.Patient;
 import org.emedical.models.requests.MedicalRecordRequest;
 import org.emedical.repositories.DoctorEntityRepository;
 import org.emedical.service.*;
