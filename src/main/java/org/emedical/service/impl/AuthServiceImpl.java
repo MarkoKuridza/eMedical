@@ -2,7 +2,6 @@ package org.emedical.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.emedical.exceptions.NotFoundException;
-import org.emedical.models.dto.Admin;
 import org.emedical.models.dto.Doctor;
 import org.emedical.models.dto.LoginRequest;
 import org.emedical.models.dto.LoginResponse;
@@ -49,9 +48,6 @@ public class AuthServiceImpl implements AuthService {
         if (userEntity.getRole() == Role.DOCTOR) {
             Doctor doctor = modelMapper.map(userEntity, Doctor.class);
             claims.put("doctorId", doctor.getId());
-        } else if (userEntity.getRole() == Role.ADMIN) {
-            Admin admin = modelMapper.map(userEntity, Admin.class);
-            claims.put("adminId", admin.getId());
         }
 
         String token = jwtService.generateToken(claims, userDetails);

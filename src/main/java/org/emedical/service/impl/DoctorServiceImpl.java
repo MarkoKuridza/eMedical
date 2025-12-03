@@ -9,7 +9,6 @@ import org.emedical.exceptions.NotFoundException;
 import org.emedical.models.dto.Doctor;
 import org.emedical.models.entities.DoctorEntity;
 import org.emedical.models.enums.Role;
-import org.emedical.models.mappers.DoctorMapper;
 import org.emedical.repositories.DoctorEntityRepository;
 import org.emedical.service.DoctorService;
 import org.modelmapper.ModelMapper;
@@ -31,28 +30,7 @@ public class DoctorServiceImpl implements DoctorService {
         return modelMapper.map(repository.findById(id).orElseThrow(NotFoundException::new), Doctor.class);
     }
 
-    @Override
-    public Doctor createDoctor(Doctor doctor) {
 
-        DoctorEntity doctorEntity = DoctorMapper.toEntity(doctor);
-        doctorEntity.setRole(Role.DOCTOR);
-        doctorEntity.setIsActive(true);
-
-        DoctorEntity savedEntity = repository.save(doctorEntity);
-        return DoctorMapper.toDto(savedEntity);
-    }
-
-    @Override
-    public Doctor editDoctor(Doctor nurse) {
-
-        DoctorEntity doctorEntity = repository.findById(nurse.getId())
-        .orElseThrow(() -> new IllegalArgumentException("This doctor does not exist!"));
-
-        DoctorMapper.updateEntity(doctorEntity, nurse);
-        DoctorEntity updated = repository.save(doctorEntity);
-
-        return DoctorMapper.toDto(updated);
-    }
 
     @Override
     public void setActive(Integer id) {
