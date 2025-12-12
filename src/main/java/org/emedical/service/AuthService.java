@@ -10,6 +10,7 @@ public interface AuthService {
     LoginResponse login(LoginRequest request, HttpServletResponse response) throws NotFoundException;
     void logout(HttpServletResponse response);
     boolean canAccessTeamId(Integer id);
+    String checkRole(HttpServletRequest request);
 
     boolean checkAuth(HttpServletRequest request);
 }

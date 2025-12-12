@@ -69,7 +69,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         AppointmentEntity appointment = modelMapper.map(request, AppointmentEntity.class);
         appointment.setId(null);
 
-        appointment.setAppointmentStatus(Status.SCHEDULED);
+        //appointment.setAppointmentStatus(Status.SCHEDULED);
 
         appointment = appointmentRepository.saveAndFlush(appointment);
         entityManager.persist(appointment);

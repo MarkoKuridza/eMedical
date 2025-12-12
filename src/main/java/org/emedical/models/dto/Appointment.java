@@ -10,10 +10,12 @@ import java.time.LocalDateTime;
 public class Appointment {
     private Integer id;
     private Integer doctorId;
+    private String doctorFirstName;
+    private String doctorLastName;
     private Integer nurseId;
     //private Integer patientId;
     private Integer teamId;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime appointmentDate;
     private String appointmentDetails;
     private Status appointmentStatus;

@@ -3,5 +3,7 @@ package org.emedical.models.enums;
 public enum Status {
     SCHEDULED,
     COMPLETED,
-    CANCELED
+    CANCELED,
+    ARRIVED,
+    EMERGENCY
 }

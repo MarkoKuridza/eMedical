@@ -36,8 +36,16 @@ public class AuthController {
     }
 
     @GetMapping("/check")
-    public ResponseEntity<Map<String, Boolean>> checkAuth(HttpServletRequest request) {
+    public ResponseEntity<Map<String, Object>> checkAuth(HttpServletRequest request) {
         boolean isAuthenticated = authService.checkAuth(request);
-        return ResponseEntity.ok(Map.of("authenticated", isAuthenticated));
+        if(!isAuthenticated){
+            return ResponseEntity.ok(
+                    Map.of("authenticated", false)
+            );
+        }
+
+        String role = authService.checkRole(request);
+        return ResponseEntity.ok(Map.of("authenticated", true,
+                                        "role", role));
     }
 }

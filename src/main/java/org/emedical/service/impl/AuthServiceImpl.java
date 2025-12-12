@@ -83,6 +83,20 @@ public class AuthServiceImpl implements AuthService {
         return teamId.equals(id);
     }
 
+    public String checkRole(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+
+        if(cookies != null)
+            for(Cookie cookie : cookies) {
+                if("jwt".equals(cookie.getName())){
+                    String token = cookie.getValue();
+                    Claims claims = jwtService.extractAllClaims(token);
+                    return claims.get("role", String.class);
+                }
+            }
+        return "";
+    }
+
     public boolean checkAuth(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
 
