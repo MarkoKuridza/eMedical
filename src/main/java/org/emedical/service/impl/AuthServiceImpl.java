@@ -91,7 +91,7 @@ public class AuthServiceImpl implements AuthService {
                 if("jwt".equals(cookie.getName())){
                     String token = cookie.getValue();
                     Claims claims = jwtService.extractAllClaims(token);
-                    return claims.get("role", String.class);
+                    return claims.get("role").toString();
                 }
             }
         return "";

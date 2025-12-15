@@ -31,8 +31,6 @@ public class AppointmentController {
         return ResponseEntity.ok(appointments);
     }
 
-
-//    @PreAuthorize("hasRole('NURSE')")
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> addAppointmentForDoctor(@RequestBody AppointmentRequest request,

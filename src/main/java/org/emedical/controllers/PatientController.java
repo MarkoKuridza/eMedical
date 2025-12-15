@@ -32,11 +32,4 @@ public class PatientController {
         List<Patient> patients = patientService.getAllPatientsByDoctorId(doctor.getId());
         return ResponseEntity.ok(patients);
     }
-
-
-//    //pristup pacijentu i njegovom zdravstvenom kartonu
-//    @GetMapping("/patients/{patientId}")
-//    public ResponseEntity<List<Patient>> getPatient(@PathVariable Integer patientId){
-//
-//    }
 }
