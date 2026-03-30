@@ -86,9 +86,9 @@ public class AuthServiceImpl implements AuthService {
     public String checkRole(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
 
-        if(cookies != null)
-            for(Cookie cookie : cookies) {
-                if("jwt".equals(cookie.getName())){
+        if (cookies != null)
+            for (Cookie cookie : cookies) {
+                if ("jwt".equals(cookie.getName())) {
                     String token = cookie.getValue();
                     Claims claims = jwtService.extractAllClaims(token);
                     return claims.get("role").toString();
@@ -100,13 +100,13 @@ public class AuthServiceImpl implements AuthService {
     public boolean checkAuth(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
 
-        if(cookies != null)
-            for(Cookie cookie : cookies) {
-                if("jwt".equals(cookie.getName())){
+        if (cookies != null)
+            for (Cookie cookie : cookies) {
+                if ("jwt".equals(cookie.getName())) {
                     String token = cookie.getValue();
                     return jwtService.validateToken(token);
                 }
-        }
+            }
         return false;
     }
 
