@@ -27,9 +27,4 @@ public class UserEntity {
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Basic
-    @Column(name = "isActive", nullable = false)
-    private Boolean isActive;
-    
 }

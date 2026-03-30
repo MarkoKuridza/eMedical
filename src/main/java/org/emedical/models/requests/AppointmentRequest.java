@@ -1,6 +1,7 @@
 package org.emedical.models.requests;
 
 import lombok.Data;
+import org.emedical.models.enums.Status;
 
 import java.time.LocalDateTime;
 
@@ -12,4 +13,5 @@ public class AppointmentRequest {
     private Integer teamId = null;
     private LocalDateTime appointmentDate;
     private String appointmentDetails;
+    private Status appointmentStatus;
 }
