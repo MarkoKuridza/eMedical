@@ -9,8 +9,9 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Doctor extends User {
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
+    private Integer teamId;
     private String specialization;
     private List<Appointment> appointments;
     private Set<Patient> waitingPatients;

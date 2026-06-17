@@ -1,0 +1,12 @@
+package org.emedical.models.requests;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class TeamRequest {
+    private String teamName;
+}

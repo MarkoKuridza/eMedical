@@ -5,16 +5,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.emedical.exceptions.NotFoundException;
-import org.emedical.models.dto.LoginRequest;
-import org.emedical.models.dto.LoginResponse;
-import org.emedical.models.entities.DoctorEntity;
-import org.emedical.models.entities.NurseEntity;
-import org.emedical.models.entities.UserEntity;
-import org.emedical.models.enums.Role;
-import org.emedical.repositories.DoctorEntityRepository;
-import org.emedical.repositories.NurseEntityRepository;
-import org.emedical.repositories.UserEntityRepository;
+import org.emedical.models.requests.LoginRequest;
+import org.emedical.models.responses.LoginResponse;
 import org.emedical.security.CustomUserDetails;
 import org.emedical.service.AuthService;
 import org.emedical.service.JwtService;
@@ -22,8 +14,6 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -36,6 +26,7 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
+    @Override
     public LoginResponse login(LoginRequest request, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -64,6 +55,7 @@ public class AuthServiceImpl implements AuthService {
         return new LoginResponse(user.getRole().toString());
     }
 
+    @Override
     public void logout(HttpServletResponse response) {
         ResponseCookie cookie = ResponseCookie.from("jwt", "")
                 .httpOnly(true)
@@ -76,48 +68,38 @@ public class AuthServiceImpl implements AuthService {
         response.addHeader("Set-Cookie", cookie.toString());
     }
 
-
-    public boolean canAccessTeamId(Integer id) {
-        Claims claims = getClaims();
-        Integer teamId = (Integer) claims.get("teamId");
-        return teamId.equals(id);
-    }
-
-    public String checkRole(HttpServletRequest request) {
+    @Override
+    public Map<String, Object> getAuthInfo(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
 
-        if (cookies != null)
+        if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if ("jwt".equals(cookie.getName())) {
                     String token = cookie.getValue();
+
+                    if (!jwtService.validateToken(token)) break;
                     Claims claims = jwtService.extractAllClaims(token);
-                    return claims.get("role").toString();
+
+                    Map<String, Object> info = new HashMap<>();
+                    info.put("authenticated", true);
+                    info.put("role", claims.get("role").toString());
+                    info.put("id", claims.get("userId"));
+                    info.put("teamId", claims.get("teamId"));
+                    return info;
                 }
             }
-        return "";
-    }
-
-    public boolean checkAuth(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-
-        if (cookies != null)
-            for (Cookie cookie : cookies) {
-                if ("jwt".equals(cookie.getName())) {
-                    String token = cookie.getValue();
-                    return jwtService.validateToken(token);
-                }
-            }
-        return false;
-    }
-
-    private Claims getClaims() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        if (auth == null || auth.getCredentials() == null) {
-            throw new IllegalStateException("There is no JWT token");
         }
-
-        String token = auth.getCredentials().toString();
-        return jwtService.extractAllClaims(token);
+        return Map.of("authenticated", false);
     }
+
+//    private Claims getClaims() {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//
+//        if (auth == null || auth.getCredentials() == null) {
+//            throw new IllegalStateException("There is no JWT token");
+//        }
+//
+//        String token = auth.getCredentials().toString();
+//        return jwtService.extractAllClaims(token);
+//    }
 }

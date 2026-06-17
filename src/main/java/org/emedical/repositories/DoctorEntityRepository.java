@@ -6,8 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface DoctorEntityRepository extends JpaRepository<DoctorEntity, Integer> {
-    Optional<DoctorEntity> findById(Integer id);
-    DoctorEntity getDoctorEntityByTeam_TeamId(Integer id);
+    Optional<DoctorEntity> getDoctorEntityByTeam_TeamId(Integer id);
 
-    Optional<DoctorEntity> findByUsername(String username);
+    boolean existsDoctorEntityByUsername(String username);
+
+//    boolean existsDoctorEntityByTeam_TeamId(Integer teamId);
+//
+//    Optional<DoctorEntity> findDoctorEntitiesByIdAndTeam_TeamId(Integer id, Integer teamId);
 }

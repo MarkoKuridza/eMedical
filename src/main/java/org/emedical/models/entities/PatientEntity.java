@@ -17,19 +17,19 @@ public class PatientEntity {
 
     @Basic
     @Column(name = "first_name", nullable = false)
-    private String first_name;
+    private String firstName;
 
     @Basic
     @Column(name = "last_name", nullable = false)
-    private String last_name;
+    private String lastName;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient")
     private List<AppointmentEntity> appointments;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctor_id")
-    private DoctorEntity doctor;
+    @JoinColumn(name = "team_id")
+    private TeamEntity team;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient")
     private List<MedicalRecordEntity> medicalRecords;
 }

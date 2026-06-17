@@ -55,6 +55,9 @@ public class AppointmentEntity {
     @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
     private MedicalRecordEntity medicalRecord;
 
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private WaitingRoomEntity waitingRoomEntry;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

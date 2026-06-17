@@ -27,13 +27,13 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
         if(entity.getRole() == Role.DOCTOR) {
             teamId = doctorEntityRepository.findById(entity.getId())
-                    .map(d -> d.getTeam().getTeamId())
+                    .map(d -> d.getTeam() != null ? d.getTeam().getTeamId() : null)
                     .orElse(null);
         }
 
         if(entity.getRole() == Role.NURSE) {
             teamId = nurseEntityRepository.findById(entity.getId())
-                    .map(n -> n.getTeam().getTeamId())
+                    .map(n -> n.getTeam() != null ? n.getTeam().getTeamId() : null)
                     .orElse(null);
         }
 

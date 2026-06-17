@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Patient {
     private Integer id;
-    private String first_name;
-    private String last_name;
-    private Integer doctorId;
+    private String firstName;
+    private String lastName;
+    private Integer teamId;
 }

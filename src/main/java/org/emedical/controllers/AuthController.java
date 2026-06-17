@@ -4,13 +4,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.emedical.exceptions.NotFoundException;
-import org.emedical.models.dto.LoginRequest;
-import org.emedical.models.dto.LoginResponse;
+import org.emedical.models.requests.LoginRequest;
+import org.emedical.models.responses.LoginResponse;
 import org.emedical.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -20,13 +19,10 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-        public ResponseEntity<Map<String, Object>> login(@RequestBody LoginRequest request, HttpServletResponse response) throws NotFoundException {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody LoginRequest request, HttpServletResponse response) throws NotFoundException {
         LoginResponse info = authService.login(request, response);
 
-        Map<String, Object> body = new HashMap<>();
-        body.put("role", info.getRole());
-
-        return ResponseEntity.ok(body);
+        return ResponseEntity.ok(Map.of("role", info.getRole()));
     }
 
     @PostMapping("/logout")
@@ -37,15 +33,6 @@ public class AuthController {
 
     @GetMapping("/check")
     public ResponseEntity<Map<String, Object>> checkAuth(HttpServletRequest request) {
-        boolean isAuthenticated = authService.checkAuth(request);
-        if(!isAuthenticated){
-            return ResponseEntity.ok(
-                    Map.of("authenticated", false)
-            );
-        }
-
-        String role = authService.checkRole(request);
-        return ResponseEntity.ok(Map.of("authenticated", true,
-                                        "role", role));
+        return ResponseEntity.ok(authService.getAuthInfo(request));
     }
 }

@@ -8,11 +8,21 @@ import org.emedical.security.CustomUserDetails;
 import java.util.List;
 
 public interface AppointmentService {
-    Appointment findById(Integer id) throws NotFoundException;
-    Appointment createAppointment(AppointmentRequest request, CustomUserDetails user);
+    Appointment createAppointment(AppointmentRequest request, CustomUserDetails user) throws NotFoundException;
+
     List<Appointment> getAllAppointmentsByTeamId(Integer id);
 
-    Appointment updateAppointment(Integer id, Appointment updatedAppointment) throws NotFoundException;
+    List<Appointment> getAppointmentsPendingCompletion(Integer teamId);
 
-    void deleteAppointment(Integer id) throws NotFoundException;
+    Appointment markPatientArrived(Integer id, CustomUserDetails user) throws NotFoundException;
+
+    Appointment completeAppointment(Integer id, CustomUserDetails user) throws NotFoundException;
+
+    Appointment updateAppointment(Integer id, Appointment updatedAppointment, CustomUserDetails user) throws NotFoundException;
+
+    void deleteAppointment(Integer id, CustomUserDetails user) throws NotFoundException;
+
+    List<Appointment> getDoctorAppointments(Integer doctorId);
+
+    Appointment startAppointment(Integer appointmentId, CustomUserDetails doctor) throws NotFoundException;
 }

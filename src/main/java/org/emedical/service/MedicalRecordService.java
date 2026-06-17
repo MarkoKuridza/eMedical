@@ -3,11 +3,16 @@ package org.emedical.service;
 import org.emedical.exceptions.NotFoundException;
 import org.emedical.models.dto.MedicalRecord;
 import org.emedical.models.requests.MedicalRecordRequest;
+import org.emedical.security.CustomUserDetails;
 
 import java.util.List;
 
 public interface MedicalRecordService {
-    MedicalRecord createMedicalRecord(MedicalRecordRequest request, String doctorUsername) throws NotFoundException;
+    MedicalRecord finishAppointment(Integer appointmentId,
+                                    MedicalRecordRequest request,
+                                    CustomUserDetails doctor) throws NotFoundException;
 
-    List<MedicalRecord> getAllMedicalRecordsByPatientId(Integer id);
+    MedicalRecord getMedicalRecordByAppointmentId(Integer appointmentId) throws NotFoundException;
+
+    List<MedicalRecord> getAllMedicalRecordsByPatientId(Integer id, CustomUserDetails user);
 }

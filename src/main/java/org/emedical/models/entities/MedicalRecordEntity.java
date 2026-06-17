@@ -24,8 +24,24 @@ import java.time.LocalDateTime;
         private String prescription;
 
         @Basic
+        @Column(name = "referral")
+        private String referral;
+
+        @Basic
+        @Column(name = "patient_first_name", nullable = false)
+        private String patientFirstName;
+
+        @Basic
+        @Column(name = "patient_last_name", nullable = false)
+        private String patientLastName;
+
+        @Basic
         @Column(name = "created_At", nullable = false)
         private LocalDateTime createdAt;
+
+        @Basic
+        @Column(name = "updated_at")
+        private LocalDateTime updatedAt;
 
         @Basic
         @Column(name = "emergency")
@@ -42,4 +58,15 @@ import java.time.LocalDateTime;
         @OneToOne
         @JoinColumn(name = "appointment_id")
         private AppointmentEntity appointment;
+
+        @PrePersist
+        protected void onCreate() {
+            this.createdAt = LocalDateTime.now();
+            this.updatedAt = this.createdAt;
+        }
+
+        @PreUpdate
+        protected void onUpdate() {
+            this.updatedAt = LocalDateTime.now();
+        }
     }

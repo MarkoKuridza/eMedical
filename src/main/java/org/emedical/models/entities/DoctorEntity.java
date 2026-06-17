@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.emedical.models.dto.Patient;
 
 import java.util.List;
 
@@ -16,11 +15,11 @@ public class DoctorEntity extends UserEntity {
 
     @Basic
     @Column(name = "first_name", nullable = false)
-    private String first_name;
+    private String firstName;
 
     @Basic
     @Column(name = "last_name", nullable = false)
-    private String last_name;
+    private String lastName;
 
     @Basic
     @Column(name = "specialization", nullable = false)
@@ -29,9 +28,6 @@ public class DoctorEntity extends UserEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id", referencedColumnName = "id")
     private TeamEntity team;
-
-    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
-    private List<PatientEntity> patients;
 
     @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     @JsonIgnore

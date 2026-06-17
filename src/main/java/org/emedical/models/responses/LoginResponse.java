@@ -1,4 +1,4 @@
-package org.emedical.models.dto;
+package org.emedical.models.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

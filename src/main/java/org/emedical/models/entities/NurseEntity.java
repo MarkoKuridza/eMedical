@@ -2,9 +2,9 @@ package org.emedical.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "nurse")
@@ -12,11 +12,11 @@ public class NurseEntity extends UserEntity {
 
     @Basic
     @Column(name = "first_name", nullable = false)
-    private String first_name;
+    private String firstName;
 
     @Basic
     @Column(name = "last_name", nullable = false)
-    private String last_name;
+    private String lastName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")

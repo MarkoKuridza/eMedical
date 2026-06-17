@@ -1,4 +1,4 @@
-package org.emedical.models.dto;
+package org.emedical.models.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

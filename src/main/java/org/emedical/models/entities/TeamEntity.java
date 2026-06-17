@@ -12,7 +12,7 @@ public class TeamEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Integer teamId;
 
     @Basic
@@ -22,10 +22,12 @@ public class TeamEntity {
     @OneToOne(mappedBy = "team")
     private DoctorEntity doctor;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "team")
     private List<NurseEntity> nurses;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private List<AppointmentEntity> appointments;
+    @OneToMany(mappedBy = "team")
+    private List<PatientEntity> patients;
 
+    @OneToMany(mappedBy = "team")
+    private List<AppointmentEntity> appointments;
 }

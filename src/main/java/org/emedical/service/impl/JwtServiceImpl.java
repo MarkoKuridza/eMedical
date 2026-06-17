@@ -4,11 +4,9 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import org.emedical.service.JwtService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -30,16 +28,18 @@ public class JwtServiceImpl implements JwtService {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
+    @Override
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-
+    @Override
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
+    @Override
     public Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -48,11 +48,11 @@ public class JwtServiceImpl implements JwtService {
                 .getBody();
     }
 
+    @Override
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
-                .claim("role", userDetails.getAuthorities())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + keyExpiration)) //8 sati
                 .signWith(SignatureAlgorithm.HS256, getSigningKey())
@@ -60,6 +60,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     //back-end security
+    @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
         String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
@@ -71,6 +72,7 @@ public class JwtServiceImpl implements JwtService {
 
 
     //front-end check
+    @Override
     public boolean validateToken(String token) {
         try {
             Claims claims = Jwts.parserBuilder()
