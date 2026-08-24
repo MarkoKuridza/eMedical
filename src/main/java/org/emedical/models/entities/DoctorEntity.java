@@ -22,6 +22,10 @@ public class DoctorEntity extends UserEntity {
     private String lastName;
 
     @Basic
+    @Column(name = "jmb", nullable = false, unique = true)
+    private String jmb;
+
+    @Basic
     @Column(name = "specialization", nullable = false)
     private String specialization;
 

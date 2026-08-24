@@ -5,6 +5,8 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+//Ne da mi se ovo ispravljati
+//
 @Data
 public class MedicalRecord {
     private Integer id;

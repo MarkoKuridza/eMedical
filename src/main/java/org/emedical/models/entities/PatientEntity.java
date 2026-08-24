@@ -23,6 +23,14 @@ public class PatientEntity {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Basic
+    @Column(name = "jmb", nullable = false, unique = true)
+    private String jmb;
+
+    @Basic
+    @Column(name = "pio_number", nullable = false, unique = true)
+    private String pioNumber;
+
     @OneToMany(mappedBy = "patient")
     private List<AppointmentEntity> appointments;
 

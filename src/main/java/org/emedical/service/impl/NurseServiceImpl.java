@@ -59,6 +59,7 @@ public class NurseServiceImpl implements NurseService {
         nurseEntity.setUsername(request.getUsername());
         nurseEntity.setFirstName(request.getFirstName());
         nurseEntity.setLastName(request.getLastName());
+        nurseEntity.setJmb(request.getJmb());
         nurseEntity.setPassword(passwordEncoder.encode(request.getPassword()));
         nurseEntity.setRole(Role.NURSE);
         if (request.getTeamId() != null) {

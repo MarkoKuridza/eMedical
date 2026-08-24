@@ -18,6 +18,10 @@ public class NurseEntity extends UserEntity {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Basic
+    @Column(name = "jmb", nullable = false, unique = true)
+    private String jmb;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private TeamEntity team;

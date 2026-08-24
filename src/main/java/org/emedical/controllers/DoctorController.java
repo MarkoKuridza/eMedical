@@ -37,7 +37,7 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.registerDoctor(request));
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Doctor> updateDoctor(@PathVariable Integer id,
                                                @Valid @RequestBody DoctorRequest request) throws NotFoundException {

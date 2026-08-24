@@ -12,5 +12,6 @@ public class NurseRequest {
     private String password;
     private String firstName;
     private String lastName;
+    private String jmb;
     private Integer teamId;
 }

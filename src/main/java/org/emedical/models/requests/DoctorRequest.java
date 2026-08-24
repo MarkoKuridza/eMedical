@@ -12,6 +12,7 @@ public class DoctorRequest {
     private String password;
     private String firstName;
     private String lastName;
+    private String jmb;
     private String specialization;
     private Integer teamId;
 }

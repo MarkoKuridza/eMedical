@@ -39,7 +39,7 @@ public class    NurseController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Nurse> updateNurse(@PathVariable Integer id,
                                              @Valid @RequestBody NurseRequest request) throws NotFoundException {
         return ResponseEntity.ok(nurseService.update(id, request));

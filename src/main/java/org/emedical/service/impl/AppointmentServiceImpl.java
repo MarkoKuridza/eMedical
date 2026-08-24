@@ -193,7 +193,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
 
         if (updatedAppointment.getAppointmentStatus() != null) {
-            if (updatedAppointment.getAppointmentStatus() != Status.SCHEDULED && updatedAppointment.getAppointmentStatus() != Status.CANCELED) {
+            if (updatedAppointment.getAppointmentStatus() != Status.SCHEDULED && updatedAppointment.getAppointmentStatus() != Status.CANCELED && updatedAppointment.getAppointmentStatus() != Status.EMERGENCY) {
                 throw new BadRequestException("Only SCHEDULED or CANCELED can be set manually.");
             }
             currentAppointment.setAppointmentStatus(updatedAppointment.getAppointmentStatus());
@@ -207,7 +207,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public void deleteAppointment(Integer id, CustomUserDetails user) throws NotFoundException {
         AppointmentEntity appointment = getAppointmentForTeam(id, user.getTeamId());
-        if (appointment.getAppointmentStatus() != Status.SCHEDULED && appointment.getAppointmentStatus() != Status.CANCELED) {
+
+        if (appointment.getAppointmentStatus() != Status.SCHEDULED && appointment.getAppointmentStatus() != Status.CANCELED && appointment.getAppointmentStatus() != Status.EMERGENCY) {
             throw new BadRequestException("Only scheduled or canceled appointments can be deleted.");
         }
 
@@ -249,7 +250,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     private void ensureAppointmentCanBeModified(AppointmentEntity appointment) {
-        if (appointment.getAppointmentStatus() != Status.SCHEDULED && appointment.getAppointmentStatus() != Status.CANCELED) {
+        if (appointment.getAppointmentStatus() != Status.SCHEDULED && appointment.getAppointmentStatus() != Status.CANCELED && appointment.getAppointmentStatus() != Status.EMERGENCY) {
             throw new BadRequestException("Only scheduled or canceled appointments can be updated.");
         }
 

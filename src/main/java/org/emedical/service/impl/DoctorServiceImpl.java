@@ -78,6 +78,7 @@ public class DoctorServiceImpl implements DoctorService {
         doctorEntity.setPassword(passwordEncoder.encode(request.getPassword()));
         doctorEntity.setFirstName(request.getFirstName());
         doctorEntity.setLastName(request.getLastName());
+        doctorEntity.setJmb(request.getJmb());
         doctorEntity.setSpecialization(request.getSpecialization());
         doctorEntity.setRole(Role.DOCTOR);
         doctorEntity.setTeam(resolveDoctorTeam(request.getTeamId(), null));

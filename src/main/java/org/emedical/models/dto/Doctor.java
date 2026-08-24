@@ -11,6 +11,7 @@ import java.util.Set;
 public class Doctor extends User {
     private String firstName;
     private String lastName;
+    private String jmb;
     private Integer teamId;
     private String specialization;
     private List<Appointment> appointments;

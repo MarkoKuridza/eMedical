@@ -40,40 +40,40 @@ ON DUPLICATE KEY UPDATE id = id;
 -- ============================================================
 --  DOKTORI
 -- ============================================================
-INSERT INTO doctor (id, first_name, last_name, specialization, team_id)
+INSERT INTO doctor (id, first_name, last_name, jmb, specialization, team_id)
 VALUES
-    (2, 'Marko', 'Kovač', 'Opšta medicina', 1),
-    (3, 'Jovana', 'Petrović', 'Kardiologija', 2),
-    (4, 'Stefan', 'Nikolić', 'Neurologija', 3)
+    (2, 'Marko', 'Kovač', '0101990123456', 'Opšta medicina', 1),
+    (3, 'Jovana', 'Petrović', '0201999123456', 'Kardiologija', 2),
+    (4, 'Stefan', 'Nikolić', '0301991123456', 'Neurologija', 3)
 ON DUPLICATE KEY UPDATE id = id;
 
 -- ============================================================
 --  SESTRE
 -- ============================================================
-INSERT INTO nurse (id, first_name, last_name, team_id)
+INSERT INTO nurse (id, first_name, last_name, jmb, team_id)
 VALUES
-    (5, 'Ana', 'Marković', 1),
-    (6, 'Milica', 'Jovanović', 1),
-    (7, 'Tijana', 'Đorđević', 2),
-    (8, 'Jelena', 'Ilić', 2),
-    (9, 'Bojana', 'Stanišić', 3),
-    (10, 'Dragana', 'Lukić', 3)
+    (5, 'Ana', 'Marković', '1203990123456', 1),
+    (6, 'Milica', 'Jovanović', '2507985123457', 1),
+    (7, 'Tijana', 'Đorđević', '0801960123458', 2),
+    (8, 'Jelena', 'Ilić', '1711000123459', 2),
+    (9, 'Bojana', 'Stanišić', '0306950123460', 3),
+    (10, 'Dragana', 'Lukić', '2212020123461', 3)
 ON DUPLICATE KEY UPDATE id = id;
 
 -- ============================================================
 --  PACIJENTI
 -- ============================================================
-INSERT INTO patient (id, first_name, last_name, team_id)
+INSERT INTO patient (id, first_name, last_name, jmb, pio_number, team_id)
 VALUES
-    (1, 'Petar', 'Lazić', 1),
-    (2, 'Mila', 'Stojanović', 1),
-    (3, 'Dragan', 'Vasić', 1),
-    (4, 'Ivana', 'Čović', 2),
-    (5, 'Nemanja', 'Bogdanović', 2),
-    (6, 'Sanja', 'Ristić', 2),
-    (7, 'Aleksandar', 'Simić', 3),
-    (8, 'Katarina', 'Đukić', 3),
-    (9, 'Vladimir', 'Popović', 3)
+    (1, 'Petar', 'Lazić', '1402980123462', 'PIO10000001', 1),
+    (2, 'Mila', 'Stojanović', '2707015123463', 'PIO10000002', 1),
+    (3, 'Dragan', 'Vasić', '0510940123464', 'PIO10000003', 1),
+    (4, 'Ivana', 'Čović', '1905035123465', 'PIO10000004', 2),
+    (5, 'Nemanja', 'Bogdanović', '1108990123466', 'PIO10000005', 2),
+    (6, 'Sanja', 'Ristić', '2306960123467', 'PIO10000006', 2),
+    (7, 'Aleksandar', 'Simić', '0201920123468', 'PIO10000007', 3),
+    (8, 'Katarina', 'Đukić', '1608000123469', 'PIO10000008', 3),
+    (9, 'Vladimir', 'Popović', '3004970123470', 'PIO10000009', 3)
 ON DUPLICATE KEY UPDATE id = id;
 
 -- ============================================================

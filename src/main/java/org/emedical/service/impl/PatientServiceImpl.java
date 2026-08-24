@@ -54,12 +54,15 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient createPatient(PatientRequest request) throws NotFoundException {
-        TeamEntity teamEntity = teamService.findExitingTeam(request.getTeamId());
 
         PatientEntity patientEntity = new PatientEntity();
         patientEntity.setFirstName(request.getFirstName());
         patientEntity.setLastName(request.getLastName());
-        patientEntity.setTeam(teamEntity);
+        patientEntity.setJmb(request.getJmb());
+        patientEntity.setPioNumber(request.getPioNumber());
+        if (request.getTeamId() != null) {
+            patientEntity.setTeam(teamService.findExitingTeam(request.getTeamId()));
+        }
 
         return modelMapper.map(patientRepository.save(patientEntity), Patient.class);
     }
@@ -69,10 +72,18 @@ public class PatientServiceImpl implements PatientService {
         PatientEntity patientEntity = patientRepository.findPatientEntityById(id)
                 .orElseThrow(() -> new NotFoundException("Patient not found"));
 
-        TeamEntity teamEntity = teamService.findExitingTeam(request.getTeamId());
+        TeamEntity teamEntity = null;
+
+        try {
+            teamEntity = teamService.findExitingTeam(request.getTeamId());
+        } catch (NotFoundException e) {
+            teamEntity = null;
+        }
+        
 
         patientEntity.setFirstName(request.getFirstName());
         patientEntity.setLastName(request.getLastName());
+        patientEntity.setPioNumber(request.getPioNumber());
         patientEntity.setTeam(teamEntity);
 
         patientRepository.save(patientEntity);

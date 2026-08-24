@@ -7,7 +7,15 @@ import lombok.Data;
 public class PatientRequest {
     @NotBlank
     private String firstName;
+    
     @NotBlank
     private String lastName;
+
+    @NotBlank
+    private String jmb;
+
+    @NotBlank
+    private String pioNumber;
+
     private Integer teamId;
 }

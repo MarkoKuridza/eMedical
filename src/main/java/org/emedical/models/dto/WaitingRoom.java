@@ -7,6 +7,8 @@ import org.emedical.models.enums.WaitingRoomStatus;
 
 import java.time.LocalDateTime;
 
+//Ne da mi se ovo ispravljati
+//
 @Data
 public class WaitingRoom {
     private Integer id;
