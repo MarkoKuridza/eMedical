@@ -17,3 +17,7 @@ public class Doctor extends User {
     private List<Appointment> appointments;
     private Set<Patient> waitingPatients;
 }
+
+
+//Prosiri appointments da ima vise informacija o pacijentu i dodati napomenu kod doktora kada pregleda paccijenta 
+//isto mob i mail od pacijenta i vazne dijagnoze

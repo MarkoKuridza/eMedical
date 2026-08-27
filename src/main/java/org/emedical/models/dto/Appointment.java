@@ -16,6 +16,8 @@ public class Appointment {
     private String nurseFirstName;
     private String nurseLastName;
     private Integer patientId;
+    private String patientJmb;
+    private String patientPio;
     private String patientFirstName;
     private String patientLastName;
     private Integer teamId;

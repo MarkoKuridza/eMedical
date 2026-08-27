@@ -10,6 +10,7 @@ import org.emedical.models.entities.DoctorEntity;
 import org.emedical.models.entities.TeamEntity;
 import org.emedical.models.enums.Role;
 import org.emedical.models.requests.DoctorRequest;
+import org.emedical.models.responses.DoctorResponse;
 import org.emedical.repositories.AppointmentEntityRepository;
 import org.emedical.repositories.DoctorEntityRepository;
 import org.emedical.repositories.MedicalRecordEntityRepository;
@@ -41,12 +42,13 @@ public class DoctorServiceImpl implements DoctorService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
-//    @Override
-//    public Doctor getDoctorByTeamId(Integer teamId) {
-//        DoctorEntity doctor = doctorRepository.getDoctorEntityByTeam_TeamId(teamId)
-//                .orElseThrow(() -> new NotFoundException("Doctor not found"));
-//        return modelMapper.map(doctor, Doctor.class);
-//    }
+    @Override
+    public DoctorResponse getDoctorByTeamId(Integer teamId) {
+        DoctorEntity doctor = doctorRepository.getDoctorEntityByTeam_TeamId(teamId)
+                .orElseThrow(() -> new NotFoundException("Doctor not found"));
+        DoctorResponse doctorResponse = new DoctorResponse(doctor.getFirstName(), doctor.getLastName());
+        return doctorResponse;
+    }
 
     @Override
     public List<Doctor> getAllDoctors() {

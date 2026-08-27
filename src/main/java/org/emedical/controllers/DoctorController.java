@@ -8,6 +8,7 @@ import org.emedical.models.dto.Appointment;
 import org.emedical.models.dto.Doctor;
 import org.emedical.models.dto.WaitingRoom;
 import org.emedical.models.requests.DoctorRequest;
+import org.emedical.models.responses.DoctorResponse;
 import org.emedical.security.CustomUserDetails;
 import org.emedical.service.*;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.registerDoctor(request));
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Doctor> updateDoctor(@PathVariable Integer id,
                                                @Valid @RequestBody DoctorRequest request) throws NotFoundException {
@@ -72,5 +73,12 @@ public class DoctorController {
     public ResponseEntity<Appointment> startAppointment(@PathVariable Integer id,
                                                         @AuthenticationPrincipal CustomUserDetails user) throws NotFoundException {
         return ResponseEntity.ok(doctorService.startAppointment(id, user));
+    }
+
+    @GetMapping("/team/{id}")
+    @PreAuthorize("hasRole('NURSE')")
+    public ResponseEntity<DoctorResponse> getDoctorByTeamId(@PathVariable Integer id,
+                                                    @AuthenticationPrincipal CustomUserDetails user) throws NotFoundException {
+        return ResponseEntity.ok(doctorService.getDoctorByTeamId(id));
     }
 }

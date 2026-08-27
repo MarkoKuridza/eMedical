@@ -26,3 +26,8 @@ public class MedicalRecord {
     private String referral;
     private Boolean emergency;
 }
+
+//Dodaj telefon, mail i adresu pacijenta i promijeni izgled medicinskog kartona kod doktora i dodaj 
+// napomenu koju doktor moze videti i editovati
+
+//Poboljsati formu za unos dijagnoze prilikom pregleda i to razloziti na vise kutija
