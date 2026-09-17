@@ -17,5 +17,10 @@ public class PatientRequest {
     @NotBlank
     private String pioNumber;
 
+    private String phoneNumber;
+
+    @NotBlank
+    private String address;
+
     private Integer teamId;
 }

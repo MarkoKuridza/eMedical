@@ -6,6 +6,7 @@ import org.emedical.exceptions.NotFoundException;
 import org.emedical.models.dto.Patient;
 import org.emedical.models.entities.PatientEntity;
 import org.emedical.models.entities.TeamEntity;
+import org.emedical.models.requests.PatientNoticeRequest;
 import org.emedical.models.requests.PatientRequest;
 import org.emedical.repositories.AppointmentEntityRepository;
 import org.emedical.repositories.MedicalRecordEntityRepository;
@@ -60,11 +61,25 @@ public class PatientServiceImpl implements PatientService {
         patientEntity.setLastName(request.getLastName());
         patientEntity.setJmb(request.getJmb());
         patientEntity.setPioNumber(request.getPioNumber());
+        patientEntity.setPhoneNumber(request.getPhoneNumber());
+        patientEntity.setAddress(request.getAddress());
+        patientEntity.setDoctorNotice(null);
         if (request.getTeamId() != null) {
             patientEntity.setTeam(teamService.findExitingTeam(request.getTeamId()));
         }
 
         return modelMapper.map(patientRepository.save(patientEntity), Patient.class);
+    }
+
+    @Override 
+    public  Patient makeDoctorsNotice(Integer id, PatientNoticeRequest request) throws NotFoundException {
+        PatientEntity patientEntity = patientRepository.findPatientEntityById(id)
+                .orElseThrow(() -> new NotFoundException("Patient not found"));
+
+        patientEntity.setDoctorNotice(request.getDoctorNotice());
+        patientRepository.save(patientEntity);
+
+        return modelMapper.map(patientEntity, Patient.class);
     }
 
     @Override
@@ -84,6 +99,8 @@ public class PatientServiceImpl implements PatientService {
         patientEntity.setFirstName(request.getFirstName());
         patientEntity.setLastName(request.getLastName());
         patientEntity.setPioNumber(request.getPioNumber());
+        patientEntity.setPhoneNumber(request.getPhoneNumber());
+        patientEntity.setAddress(request.getAddress());
         patientEntity.setTeam(teamEntity);
 
         patientRepository.save(patientEntity);

@@ -9,5 +9,8 @@ public class Patient {
     private String lastName;
     private String jmb;
     private String pioNumber; 
+    private String phoneNumber;
+    private String address;
+    private String doctorNotice;
     private Integer teamId;
 }

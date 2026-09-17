@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.emedical.exceptions.NotFoundException;
 import org.emedical.models.dto.Patient;
+import org.emedical.models.requests.PatientNoticeRequest;
 import org.emedical.models.requests.PatientRequest;
 import org.emedical.security.CustomUserDetails;
 import org.emedical.service.PatientService;
@@ -50,5 +51,12 @@ public class PatientController {
     public ResponseEntity<List<Patient>> getAllPatientsByTeamId(@AuthenticationPrincipal CustomUserDetails user) {
         List<Patient> patients = patientService.getAllPatientsByTeamId(user.getTeamId());
         return ResponseEntity.ok(patients);
+    }
+
+    @PutMapping("/edit-doc-notice/{id}")
+    @PreAuthorize("hasRole('DOCTOR')")
+    public  ResponseEntity<Patient> createDoctorsNotice(@PathVariable Integer id, 
+                                                        @Valid @RequestBody PatientNoticeRequest request) throws NotFoundException {
+        return ResponseEntity.ok(patientService.makeDoctorsNotice(id, request));
     }
 }
