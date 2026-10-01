@@ -7,6 +7,7 @@ import lombok.Data;
 public class MedicalRecordRequest {
     @NotBlank
     private String diagnosis;
+    private String description;
     private String prescription;
     private String referral;
     private Boolean emergency;

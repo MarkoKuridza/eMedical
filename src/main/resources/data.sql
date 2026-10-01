@@ -63,18 +63,60 @@ ON DUPLICATE KEY UPDATE id = id;
 -- ============================================================
 --  PACIJENTI
 -- ============================================================
-INSERT INTO patient (id, first_name, last_name, jmb, pio_number, team_id)
+INSERT INTO patient (id, first_name, last_name, jmb, pio_number, phone_number, address, team_id)
 VALUES
-    (1, 'Petar', 'Lazić', '1402980123462', 'PIO10000001', 1),
-    (2, 'Mila', 'Stojanović', '2707015123463', 'PIO10000002', 1),
-    (3, 'Dragan', 'Vasić', '0510940123464', 'PIO10000003', 1),
-    (4, 'Ivana', 'Čović', '1905035123465', 'PIO10000004', 2),
-    (5, 'Nemanja', 'Bogdanović', '1108990123466', 'PIO10000005', 2),
-    (6, 'Sanja', 'Ristić', '2306960123467', 'PIO10000006', 2),
-    (7, 'Aleksandar', 'Simić', '0201920123468', 'PIO10000007', 3),
-    (8, 'Katarina', 'Đukić', '1608000123469', 'PIO10000008', 3),
-    (9, 'Vladimir', 'Popović', '3004970123470', 'PIO10000009', 3)
+    (1, 'Petar', 'Lazić', '1402980123462', 'PIO10000001', '+38761100001', 'Karađorđeva 1, Zvornik', 1),
+    (2, 'Mila', 'Stojanović', '2707015123463', 'PIO10000002', '+38761100002', 'Svetog Save 2, Zvornik', 1),
+    (3, 'Dragan', 'Vasić', '0510940123464', 'PIO10000003', '+38761100003', 'Patrijarha Pavla 3, Zvornik', 1),
+    (4, 'Ivana', 'Čović', '1905035123465', 'PIO10000004', '+38761100004', 'Kralja Petra I 4, Zvornik', 2),
+    (5, 'Nemanja', 'Bogdanović', '1108990123466', 'PIO10000005', '+38761100005', 'Vidovdanska 5, Zvornik', 2),
+    (6, 'Sanja', 'Ristić', '2306960123467', 'PIO10000006', '+38761100006', 'Svetog Save 6, Zvornik', 2),
+    (7, 'Aleksandar', 'Simić', '0201920123468', 'PIO10000007', '+38761100007', 'Karađorđeva 7, Zvornik', 3),
+    (8, 'Katarina', 'Đukić', '1608000123469', 'PIO10000008', '+38761100008', 'Njegoševa 8, Zvornik', 3),
+    (9, 'Vladimir', 'Popović', '3004970123470', 'PIO10000009', '+38761100009', 'Vuka Karadžića 9, Zvornik', 3),
+    (10, 'Marko', 'Jovanović', '1201850123471', 'PIO10000010', '+38761100010', 'Karađorđeva 10, Zvornik', 1),
+    (11, 'Jelena', 'Petrović', '2507925123472', 'PIO10000011', '+38761100011', 'Svetog Save 11, Zvornik', 1),
+    (12, 'Milan', 'Nikolić', '0803780123473', 'PIO10000012', '+38761100012', 'Patrijarha Pavla 12, Zvornik', 1),
+    (13, 'Ana', 'Kovačević', '1704915123474', 'PIO10000013', '+38761100013', 'Kralja Petra I 13, Zvornik', 2),
+    (14, 'Bojan', 'Milošević', '0310860123475', 'PIO10000014', '+38761100014', 'Vidovdanska 14, Zvornik', 2),
+    (15, 'Marija', 'Ilić', '2206955123476', 'PIO10000015', '+38761100015', 'Svetog Save 15, Zvornik', 2),
+    (16, 'Stefan', 'Đorđević', '0911990123477', 'PIO10000016', '+38761100016', 'Njegoševa 16, Zvornik', 3),
+    (17, 'Tamara', 'Matić', '1408025123478', 'PIO10000017', '+38761100017', 'Vuka Karadžića 17, Zvornik', 3),
+    (18, 'Nikola', 'Stanković', '2703940123479', 'PIO10000018', '+38761100018', 'Karađorđeva 18, Zvornik', 3),
+    (19, 'Sara', 'Pavlović', '0507080123480', 'PIO10000019', '+38761100019', 'Svetog Save 19, Zvornik', 1),
+    (20, 'Dušan', 'Todorović', '1801760123481', 'PIO10000020', '+38761100020', 'Patrijarha Pavla 20, Zvornik', 1),
+    (21, 'Milica', 'Lukić', '3006895123482', 'PIO10000021', '+38761100021', 'Kralja Petra I 21, Zvornik', 1),
+    (22, 'Luka', 'Marković', '1109010123483', 'PIO10000022', '+38761100022', 'Vidovdanska 22, Zvornik', 2),
+    (23, 'Teodora', 'Savić', '2405975123484', 'PIO10000023', '+38761100023', 'Njegoševa 23, Zvornik', 2),
+    (24, 'Vuk', 'Vuković', '0608830123485', 'PIO10000024', '+38761100024', 'Vuka Karadžića 24, Zvornik', 2),
+    (25, 'Nina', 'Mladenović', '1902005123486', 'PIO10000025', '+38761100025', 'Karađorđeva 25, Zvornik', 3),
+    (26, 'Filip', 'Radosavljević', '2807950123487', 'PIO10000026', '+38761100026', 'Svetog Save 26, Zvornik', 3),
+    (27, 'Jovana', 'Knežević', '1506935123488', 'PIO10000027', '+38761100027', 'Patrijarha Pavla 27, Zvornik', 3),
+    (28, 'Ognjen', 'Radić', '0201880123489', 'PIO10000028', '+38761100028', 'Kralja Petra I 28, Zvornik', 1),
+    (29, 'Kristina', 'Maksimović', '2308015123490', 'PIO10000029', '+38761100029', 'Vidovdanska 29, Zvornik', 1),
+    (30, 'Miloš', 'Đurić', '0904760123491', 'PIO10000030', '+38761100030', 'Njegoševa 30, Zvornik', 1),
+    (31, 'Lana', 'Obradović', '1709055123492', 'PIO10000031', '+38761100031', 'Vuka Karadžića 31, Zvornik', 2),
+    (32, 'Dario', 'Perić', '0411820123493', 'PIO10000032', '+38761100032', 'Karađorđeva 32, Zvornik', 2),
+    (33, 'Nataša', 'Kostić', '2607980123494', 'PIO10000033', '+38761100033', 'Svetog Save 33, Zvornik', 2),
+    (34, 'Vanja', 'Stefanović', '1303900123495', 'PIO10000034', '+38761100034', 'Patrijarha Pavla 34, Zvornik', 3),
+    (35, 'Maja', 'Blagojević', '2106025123496', 'PIO10000035', '+38761100035', 'Kralja Petra I 35, Zvornik', 3),
+    (36, 'Dejan', 'Živković', '0709870123497', 'PIO10000036', '+38761100036', 'Vidovdanska 36, Zvornik', 3),
+    (37, 'Emil', 'Cvijanović', '1601045123498', 'PIO10000037', '+38761100037', 'Njegoševa 37, Zvornik', 1),
+    (38, 'Lejla', 'Hadžić', '2907960123499', 'PIO10000038', '+38761100038', 'Vuka Karadžića 38, Zvornik', 1),
+    (39, 'Amar', 'Dedić', '1205010123500', 'PIO10000039', '+38761100039', 'Karađorđeva 39, Zvornik', 1),
+    (40, 'Hana', 'Mehmedović', '0308995123501', 'PIO10000040', '+38761100040', 'Svetog Save 40, Zvornik', 2),
+    (41, 'Edin', 'Kovač', '1802940123502', 'PIO10000041', '+38761100041', 'Patrijarha Pavla 41, Zvornik', 2),
+    (42, 'Amina', 'Selimović', '2507035123503', 'PIO10000042', '+38761100042', 'Kralja Petra I 42, Zvornik', 2),
+    (43, 'Tarik', 'Osmanović', '1001910123504', 'PIO10000043', '+38761100043', 'Vidovdanska 43, Zvornik', 3),
+    (44, 'Ena', 'Musić', '2208065123505', 'PIO10000044', '+38761100044', 'Njegoševa 44, Zvornik', 3),
+    (45, 'Adnan', 'Hasanović', '0505980123506', 'PIO10000045', '+38761100045', 'Vuka Karadžića 45, Zvornik', 3),
+    (46, 'Dina', 'Begić', '1409005123507', 'PIO10000046', '+38761100046', 'Karađorđeva 46, Zvornik', 1),
+    (47, 'Haris', 'Ibrahimović', '2707920123508', 'PIO10000047', '+38761100047', 'Svetog Save 47, Zvornik', 1),
+    (48, 'Selma', 'Kurtović', '0803860123509', 'PIO10000048', '+38761100048', 'Patrijarha Pavla 48, Zvornik', 2),
+    (49, 'Kenan', 'Hodžić', '1906015123510', 'PIO10000049', '+38761100049', 'Kralja Petra I 49, Zvornik', 2),
+    (50, 'Amna', 'Zukić', '3007975123511', 'PIO10000050', '+38761100050', 'Vidovdanska 50, Zvornik', 3)
 ON DUPLICATE KEY UPDATE id = id;
+
 
 -- ============================================================
 --  TERMINI

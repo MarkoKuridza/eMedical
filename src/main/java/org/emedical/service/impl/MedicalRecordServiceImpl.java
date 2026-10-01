@@ -60,6 +60,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
         medicalRecord.setDoctor(appointment.getDoctor());
         medicalRecord.setPatient(appointment.getPatient());
         medicalRecord.setDiagnosis(request.getDiagnosis());
+        medicalRecord.setDescription(request.getDescription());
         medicalRecord.setPrescription(blankToNull(request.getPrescription()));
         medicalRecord.setReferral(blankToNull(request.getReferral()));
         medicalRecord.setEmergency(Boolean.TRUE.equals(request.getEmergency()));

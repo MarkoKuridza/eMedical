@@ -22,6 +22,7 @@ public class MedicalRecord {
     private LocalDateTime updatedAt;
     private Integer appointmentId;
     private String diagnosis;
+    private String description;
     private String prescription;
     private String referral;
     private Boolean emergency;

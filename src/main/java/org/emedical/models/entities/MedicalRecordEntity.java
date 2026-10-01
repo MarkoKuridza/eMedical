@@ -20,6 +20,10 @@ import java.time.LocalDateTime;
         private String diagnosis;
 
         @Basic
+        @Column(name = "description", nullable = false)
+        private String description;
+
+        @Basic
         @Column(name = "prescription", nullable = false)
         private String prescription;
 

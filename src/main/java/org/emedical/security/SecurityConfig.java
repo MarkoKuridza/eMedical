@@ -85,6 +85,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/patients/**").hasAnyRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/patients/team-patients").hasAnyRole("DOCTOR", "NURSE", "ADMIN")
 
+                        .requestMatchers(HttpMethod.GET, "/api/diagnoses/all").hasAnyRole("DOCTOR", "NURSE", "ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess
